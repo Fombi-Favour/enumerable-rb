@@ -13,7 +13,7 @@ module MyEnumerable
     false
   end
 
-  def filter?
+  def filter
     result = []
     each { |para| result << para if yield(para) }
     result

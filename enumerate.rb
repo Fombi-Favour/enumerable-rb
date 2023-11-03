@@ -1,28 +1,21 @@
 module MyEnumerable
-  def all?(enumerable)
-    enumerable.each do |element|
-      yield(element)
-        return false
-      end
-    end
+  def all?
+    return false unless block_given?
+
+    each { |para| return false unless yield(para) }
     true
   end
 
-  def any? (&block)
-    each do |element|
-      return true if block.call(element)
-    end
+  def any?
+    return false unless block_given?
+
+    each { |para| return true if yield(para) }
+    false
   end
 
-  def filter(&block)
+  def filter?
     result = []
-    each do |element|
-      result << element if block.call(element)
-    end
+    each { |para| result << para if yield(para) }
     result
   end
-end
-
-class MyList
-  include MyEnumerable
 end
